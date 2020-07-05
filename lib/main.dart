@@ -1,16 +1,54 @@
 import 'package:flutter/material.dart';
 
+import './dummy_data.dart';
 import './screens/filter_screen.dart';
 import './screens/tabs_screen.dart';
 import './screens/food_details_screen.dart';
 import './screens/categories_screen.dart';
 import './screens/category_food_screen.dart';
+import './models/meal.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Map<String, bool> _filters = {
+    'gluten-free': false,
+    'vegan': false,
+    'vegetarian': false,
+    'lactose-free': false,
+  };
+
+  List<Meal> _availableFood = DUMMY_MEALS;
+
+  void _setFilters(Map<String, bool> filterData) {
+    setState(() {
+      _filters = filterData;
+
+      _availableFood = DUMMY_MEALS.where((food) {
+        if (_filters['gluten-free'] && !food.isGlutenFree) {
+          return false;
+        }
+        if (_filters['lactose-free'] && !food.isLactoseFree) {
+          return false;
+        }
+        if (_filters['vegan'] && !food.isVegan) {
+          return false;
+        }
+        if (_filters['vegetarian'] && !food.isVegetarian) {
+          return false;
+        }
+        return true;
+      }).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,9 +73,11 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => TabsScreen(),
-        CategoryFoodScreen.routeName: (context) => CategoryFoodScreen(),
+        CategoryFoodScreen.routeName: (context) =>
+            CategoryFoodScreen(_availableFood),
         FoodDetailsScreen.routeName: (context) => FoodDetailsScreen(),
-        FilterScreen.routeName: (context) => FilterScreen(),
+        FilterScreen.routeName: (context) =>
+            FilterScreen(_filters, _setFilters),
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (context) => CategoriesScreen());

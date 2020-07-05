@@ -92,7 +92,7 @@ class FoodDetailsScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pop();
+          Navigator.of(context).pop(foodId);
         },
         child: Icon(Icons.delete),
       ),
