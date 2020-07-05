@@ -4,7 +4,7 @@ import 'package:foodie/widgets/food_item.dart';
 import '../dummy_data.dart';
 
 class CategoryFoodScreen extends StatelessWidget {
-  static String routeName = '/category-food';
+  static const routeName = '/category-food';
 
   @override
   Widget build(BuildContext context) {

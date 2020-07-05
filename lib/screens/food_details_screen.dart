@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../dummy_data.dart';
 
 class FoodDetailsScreen extends StatelessWidget {
-  static String routeName = '/food-details';
+  static const routeName = '/food-details';
 
   Widget buildSectionTitle(BuildContext context, String title) {
     return Container(
@@ -89,6 +89,12 @@ class FoodDetailsScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child: Icon(Icons.delete),
       ),
     );
   }

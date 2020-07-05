@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './screens/filter_screen.dart';
+import './screens/tabs_screen.dart';
 import './screens/food_details_screen.dart';
 import './screens/categories_screen.dart';
 import './screens/category_food_screen.dart';
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
         accentColor: Colors.lightGreen,
         canvasColor: Color.fromRGBO(255, 254, 229, 1),
-        fontFamily: 'RobotoCondensed',
+        fontFamily: 'Raleway',
         textTheme: ThemeData.light().textTheme.copyWith(
             body1: TextStyle(
               color: Color.fromRGBO(20, 51, 51, 1),
@@ -26,15 +28,16 @@ class MyApp extends StatelessWidget {
               color: Color.fromRGBO(20, 51, 51, 1),
             ),
             title: TextStyle(
-              fontFamily: 'Raleway',
+              fontFamily: 'RobotoCondensed',
               fontSize: 20,
               fontWeight: FontWeight.bold,
             )),
       ),
       routes: {
-        '/': (context) => CategoriesScreen(),
+        '/': (context) => TabsScreen(),
         CategoryFoodScreen.routeName: (context) => CategoryFoodScreen(),
         FoodDetailsScreen.routeName: (context) => FoodDetailsScreen(),
+        FilterScreen.routeName: (context) => FilterScreen(),
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (context) => CategoriesScreen());
